@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: heartsync-couples-game
+    runtime: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: GEMINI_API_KEY
+        sync: false # User can provide their Gemini API key securely in Render dashboard

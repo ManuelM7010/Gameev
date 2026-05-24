@@ -1,0 +1,8 @@
+{
+  "name": "App de Juegos para Parejas",
+  "description": "Una plataforma multijugador en tiempo real para parejas que incluye minijuegos interactivos de velocidad y bouncer, desafíos íntimos con ruleta, trivias sincronizadas y portal de juegos externos con chat integrado.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User profile holding points, active achievements, and styling configurations",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Unique user ID" },
+        "name": { "type": "string", "description": "User nickname" },
+        "avatar": { "type": "string", "description": "Avatar style emoji or identifier" },
+        "points": { "type": "number", "description": "Total historical points accrued" },
+        "partnerId": { "type": "string", "description": "Connected partner UID" }
+      },
+      "required": ["uid", "name", "avatar", "points"]
+    },
+    "Room": {
+      "title": "Game Room",
+      "description": "The real-time game room state in which the couples connect and coordinate states",
+      "type": "object",
+      "properties": {
+        "roomId": { "type": "string", "description": "Unique room invite code" },
+        "status": { "type": "string", "enum": ["waiting", "playing", "finished"] },
+        "mood": { "type": "string", "enum": ["cozy", "romantic", "spicy", "intellectual", "chaos"] },
+        "player1": { "type": "object", "description": "Player 1 metadata and status" },
+        "player2": { "type": "object", "description": "Player 2 metadata and status" },
+        "gameType": { "type": "string", "description": "Currently active sub-game type (e.g. quiz, race, board, spicy)" },
+        "gameState": { "type": "object", "description": "Real-time state and values specific to the active game" },
+        "chat": { "type": "array", "description": "Active in-room chat message history" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["roomId", "status", "player1", "updatedAt"]
+    },
+    "Ranking": {
+      "title": "Couple Ranking",
+      "description": "Global or local ranking metrics for competing couples",
+      "type": "object",
+      "properties": {
+        "coupleId": { "type": "string", "description": "Composite path of both user IDs sorted" },
+        "coupleNames": { "type": "string", "description": "Joined names of the couple" },
+        "gamesPlayed": { "type": "number", "description": "Count of total games completed" },
+        "score": { "type": "number", "description": "Aggregated combined couple score" }
+      },
+      "required": ["coupleId", "coupleNames", "gamesPlayed", "score"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Store individual player credentials, scores, and links"
+    },
+    "/rooms/{roomId}": {
+      "schema": "Room",
+      "description": "Active gaming sessions synchronized across couples"
+    },
+    "/rankings/{coupleId}": {
+      "schema": "Ranking",
+      "description": "Aggregate couple scoreboards"
+    }
+  }
+}
